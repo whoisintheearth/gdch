@@ -51,7 +51,7 @@ function renderComment(comment) {
 }
 
 function renderBlocked(message) {
-  detailTitle.textContent = "글을 찾을 수 없습니다";
+  detailTitle.textContent = "GDCH 게시글";
   detail.innerHTML = `
     <section class="post detail-view">
       <a class="ghost-button link-button back-button" href="index.html">목록으로</a>
@@ -83,7 +83,6 @@ function render() {
     return;
   }
 
-  detailTitle.textContent = post.title;
   document.querySelector("#detailLikes").textContent = String(post.likes);
   document.querySelector("#detailComments").textContent = String(post.comments.length);
   document.querySelector("#detailGroup").textContent = post.company;
@@ -173,6 +172,7 @@ document.querySelector("#logoutButton").addEventListener("click", () => {
 });
 
 render();
+
 
 
 

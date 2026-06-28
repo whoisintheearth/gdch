@@ -920,3 +920,74 @@ button {
 }
 
 
+
+/* Centered authentication layout */
+.auth-screen {
+  grid-template-columns: minmax(0, 760px);
+  justify-content: center;
+  align-content: center;
+  gap: 16px;
+  padding: 24px;
+}
+
+.auth-visual {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 180px;
+  align-items: center;
+  gap: 18px;
+  padding: 20px;
+}
+
+.auth-visual .brand {
+  grid-column: 1 / -1;
+}
+
+.auth-visual img {
+  grid-column: 2;
+  grid-row: 2;
+  width: 180px;
+  height: 120px;
+  max-height: none;
+}
+
+.auth-visual > div:last-child {
+  grid-column: 1;
+  grid-row: 2;
+}
+
+.auth-visual h1 {
+  max-width: 520px;
+  font-size: clamp(28px, 4vw, 42px);
+}
+
+.auth-panel {
+  width: min(100%, 560px);
+  justify-self: center;
+  align-self: auto;
+}
+
+@media (max-width: 720px) {
+  .auth-screen {
+    align-content: start;
+  }
+
+  .auth-visual {
+    grid-template-columns: 1fr;
+  }
+
+  .auth-visual img,
+  .auth-visual > div:last-child {
+    grid-column: 1;
+    grid-row: auto;
+  }
+
+  .auth-visual img {
+    width: 100%;
+    height: auto;
+    max-height: 220px;
+  }
+}
+
+.detail-page-grid {
+  margin-top: 18px;
+}
