@@ -15,8 +15,8 @@ if (!user) {
   throw new Error("Login required");
 }
 
-if (user.company === "공무원") {
-  user.company = "공무원(재난관리국)";
+if (user.company === "공무원" || user.company === "공무원(재난관리국)") {
+  user.company = "초자연 재난관리국";
 }
 
 function getPost() {
@@ -32,11 +32,12 @@ function savePost(updater) {
   return post;
 }
 
-function getCompanyMark(company) {
-  if (company === "공무원(재난관리국)") return "災";
-  if (company === "일반 회사") return "會";
-  return "夢";
+function getCompanyAvatar(company) {
+  if (company === "초자연 재난관리국") return '<img class="avatar-image" src="assets/avatar-disaster.svg" alt="초자연 재난관리국">';
+  if (company === "일반 회사") return '<img class="avatar-image" src="assets/avatar-general.svg" alt="일반 회사">';
+  return '<img class="avatar-image" src="assets/avatar-daydream.svg" alt="백일몽">';
 }
+
 function renderComment(comment) {
   return `
     <div class="comment-item">
@@ -66,7 +67,7 @@ function getInitial(name) {
 }
 
 function renderProfile() {
-  profileAvatar.textContent = getInitial(user.name);
+  profileAvatar.innerHTML = getCompanyAvatar(user.company);
   profileName.textContent = user.name;
   profileGroup.textContent = user.company;
 }
@@ -91,7 +92,7 @@ function render() {
     <article class="post detail-view">
       <div class="post-header detail-header">
         <div class="author">
-          <span class="avatar">${getCompanyMark(post.company)}</span>
+          <span class="avatar">${getCompanyAvatar(post.company)}</span>
           <div>
             <strong>${post.author}</strong>
             <span>${post.company} · ${post.time}</span>
@@ -172,6 +173,12 @@ document.querySelector("#logoutButton").addEventListener("click", () => {
 });
 
 render();
+
+
+
+
+
+
 
 
 

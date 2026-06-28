@@ -28,7 +28,7 @@ const postBody = document.querySelector("#postBody");
 const searchInput = document.querySelector("#searchInput");
 
 function normalizeCompany(company) {
-  if (company === "공무원") return "공무원(재난관리국)";
+  if (company === "공무원" || company === "공무원(재난관리국)") return "초자연 재난관리국";
   return company;
 }
 
@@ -97,13 +97,13 @@ function getInitial(name) {
 }
 
 function renderProfile() {
-  profileAvatar.textContent = getInitial(state.user.name);
+  profileAvatar.innerHTML = getCompanyAvatar(state.company);
   profileName.textContent = state.user.name;
   profileGroup.textContent = state.company;
 }
 
 function getAffiliationText(company) {
-  if (company === "공무원(재난관리국)") return "재난관리국 소속으로 가입되어 있습니다.";
+  if (company === "초자연 재난관리국") return "초자연 재난관리국 소속으로 가입되어 있습니다.";
   if (company === "일반 회사") return "일반 회사 직장인으로 가입되어 있습니다.";
   return "백일몽 소속으로 가입되어 있습니다.";
 }
@@ -113,18 +113,19 @@ function renderIdentity() {
   identityText.textContent = getAffiliationText(state.company);
 }
 
-function getCompanyMark(company) {
-  if (company === "공무원(재난관리국)") return "災";
-  if (company === "일반 회사") return "會";
-  return "夢";
+function getCompanyAvatar(company) {
+  if (company === "초자연 재난관리국") return '<img class="avatar-image" src="assets/avatar-disaster.svg" alt="초자연 재난관리국">';
+  if (company === "일반 회사") return '<img class="avatar-image" src="assets/avatar-general.svg" alt="일반 회사">';
+  return '<img class="avatar-image" src="assets/avatar-daydream.svg" alt="백일몽">';
 }
+
 
 function renderPostCard(post) {
   return `
     <article class="post post-clickable" data-open-post="${post.id}" tabindex="0" role="link" aria-label="${post.title} 상세 페이지로 이동">
       <div class="post-header">
         <div class="author">
-          <span class="avatar">${getCompanyMark(post.company)}</span>
+          <span class="avatar">${getCompanyAvatar(post.company)}</span>
           <div>
             <strong>${post.author}</strong>
             <span>${post.company} · ${post.time}</span>
@@ -379,3 +380,8 @@ if (sessionUser) {
 } else {
   showAuth();
 }
+
+
+
+
+

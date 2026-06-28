@@ -991,3 +991,62 @@ button {
 .detail-page-grid {
   margin-top: 18px;
 }
+
+
+
+/* Organization avatars: black background, white hanja */
+.avatar,
+.profile-avatar {
+  color: #fff;
+  background: #050505;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+}
+
+.avatar,
+.profile-avatar {
+  display: inline-grid;
+  place-items: center;
+  align-items: center;
+  justify-items: center;
+  line-height: 1;
+  text-align: center;
+  font-family: Arial, "Noto Sans KR", sans-serif;
+}
+
+.avatar {
+  font-size: 18px;
+}
+
+.profile-avatar {
+  font-size: 20px;
+}
+
+.avatar,
+.profile-avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  font-size: 0;
+}
+
+
+
+.avatar,
+.profile-avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  overflow: hidden;
+  background: #050505;
+}
+
+.avatar-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
