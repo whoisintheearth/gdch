@@ -1,0 +1,219 @@
+﻿<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GDCH</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <section class="auth-screen" id="authScreen">
+      <div class="auth-visual">
+        <a class="brand" href="#" aria-label="GDCH">
+          <span class="brand-mark">G</span>
+          <span>
+            <strong>GDCH</strong>
+            <small>GDCH lounge</small>
+          </span>
+        </a>
+        <img src="assets/workplace-panel.png" alt="업무용 책상과 노트북 일러스트" />
+        <div>
+          <p class="eyebrow">시뮬레이션 회원 인증</p>
+          <h1>소속을 고르고 GDCH 전체 피드에 입장하세요.</h1>
+          <p>가입한 소속은 프로필에 표시되고, 피드에는 여러 회사 직장인들의 글이 함께 올라옵니다.</p>
+        </div>
+      </div>
+
+      <div class="auth-panel">
+        <div class="auth-tabs" role="tablist" aria-label="회원 메뉴">
+          <button class="auth-tab active" type="button" data-auth-tab="signup">회원가입</button>
+          <button class="auth-tab" type="button" data-auth-tab="login">로그인</button>
+        </div>
+
+        <form class="auth-form" id="signupForm">
+          <label>
+            <span>닉네임</span>
+            <input id="signupName" type="text" maxlength="16" placeholder="예: 조용한 직장인" required />
+          </label>
+          <label>
+            <span>이메일</span>
+            <input id="signupEmail" type="email" placeholder="you@example.com" required />
+          </label>
+          <label>
+            <span>비밀번호</span>
+            <input id="signupPassword" type="password" minlength="4" placeholder="4자 이상" required />
+          </label>
+          <fieldset>
+            <legend>가입할 소속</legend>
+            <label class="group-choice">
+              <input type="radio" name="signupCompany" value="(주) 백일몽 주식회사" checked />
+              <span>
+                <strong>(주) 백일몽 주식회사</strong>
+                <small>기획 · 개발 · 운영</small>
+              </span>
+            </label>
+            <label class="group-choice">
+              <input type="radio" name="signupCompany" value="공무원(재난관리국)" />
+              <span>
+                <strong>공무원(재난관리국)</strong>
+                <small>상황실 · 재난 문자 · 현장 대응</small>
+              </span>
+            </label>
+            <label class="group-choice">
+              <input type="radio" name="signupCompany" value="일반 회사" />
+              <span>
+                <strong>일반 회사</strong>
+                <small>사무직 · 영업 · 회계 · 운영</small>
+              </span>
+            </label>
+          </fieldset>
+          <p class="form-message" id="signupMessage"></p>
+          <button class="primary-button" type="submit">가입하고 입장</button>
+        </form>
+
+        <form class="auth-form hidden" id="loginForm">
+          <label>
+            <span>이메일</span>
+            <input id="loginEmail" type="email" placeholder="you@example.com" required />
+          </label>
+          <label>
+            <span>비밀번호</span>
+            <input id="loginPassword" type="password" placeholder="비밀번호" required />
+          </label>
+          <p class="form-message" id="loginMessage"></p>
+          <button class="primary-button" type="submit">로그인</button>
+          <button class="ghost-button" type="button" id="demoLogin">데모 계정으로 입장</button>
+        </form>
+      </div>
+    </section>
+
+    <div class="app-shell hidden" id="appShell">
+      <aside class="sidebar" aria-label="주요 메뉴">
+        <a class="brand" href="#" aria-label="GDCH 홈">
+          <span class="brand-mark">G</span>
+          <span>
+            <strong>GDCH</strong>
+            <small>GDCH lounge</small>
+          </span>
+        </a>
+        <section class="profile-card" aria-label="내 프로필">
+          <div class="profile-avatar" id="profileAvatar">나</div>
+          <div>
+            <span class="eyebrow">내 프로필</span>
+            <h2 id="profileName">로그인 사용자</h2>
+            <p id="profileGroup">소속 확인 중</p>
+          </div>
+        </section>
+
+        <nav class="nav-list">
+          <button class="nav-item active" type="button" data-view="home" title="홈">
+            <span class="icon">⌂</span><span>홈</span>
+          </button>
+          <button class="nav-item" type="button" data-view="hot" title="인기글">
+            <span class="icon">↗</span><span>인기글</span>
+          </button>
+          <button class="nav-item" type="button" data-view="company" title="내 소속 글">
+            <span class="icon">▦</span><span>내 소속 글</span>
+          </button>
+          <button class="nav-item" type="button" data-view="saved" title="저장글">
+            <span class="icon">☆</span><span>저장글</span>
+          </button>
+        </nav>
+
+        <section class="identity-card">
+          <img src="assets/workplace-panel.png" alt="업무용 책상과 노트북 일러스트" />
+          <div>
+            <span class="eyebrow">익명 인증 상태</span>
+            <h2 id="identityTitle">인증 전</h2>
+            <p id="identityText">로그인하면 가입 소속이 프로필에 표시됩니다.</p>
+          </div>
+        </section>
+      </aside>
+
+      <main class="main">
+        <header class="topbar">
+          <div>
+            <p class="eyebrow">GDCH 직장인 전체 커뮤니티</p>
+            <h1>괴담이어도 출근은 해야 하니까</h1>
+          </div>
+          <div class="topbar-actions">
+            <button class="ghost-button" type="button" id="logoutButton">로그아웃</button>
+            <button class="primary-button" type="button" id="openComposer">글쓰기</button>
+          </div>
+        </header>
+
+        <section class="toolbar" aria-label="게시글 필터">
+          <div class="segmented" role="tablist" aria-label="피드 필터">
+            <button class="segment active" type="button" data-filter="all">전체</button>
+            <button class="segment" type="button" data-filter="mine">내 소속</button>
+            <button class="segment" type="button" data-filter="question">질문</button>
+            <button class="segment" type="button" data-filter="vent">속풀이</button>
+          </div>
+          <label class="search-box">
+            <span>⌕</span>
+            <input id="searchInput" type="search" placeholder="게시글 검색" />
+          </label>
+        </section>
+
+        <section class="composer hidden" id="composer" aria-label="새 글 작성">
+          <div class="composer-grid">
+            <label>
+              <span>분류</span>
+              <select id="postType">
+                <option value="question">질문</option>
+                <option value="vent">속풀이</option>
+                <option value="info">정보</option>
+              </select>
+            </label>
+            <label>
+              <span>제목</span>
+              <input id="postTitle" type="text" maxlength="48" placeholder="제목을 입력하세요" />
+            </label>
+          </div>
+          <label>
+            <span>내용</span>
+            <textarea id="postBody" rows="4" maxlength="220" placeholder="익명으로 나누고 싶은 이야기를 적어보세요"></textarea>
+          </label>
+          <div class="composer-actions">
+            <button class="ghost-button" type="button" id="cancelPost">취소</button>
+            <button class="primary-button" type="button" id="publishPost">게시</button>
+          </div>
+        </section>
+
+        <section class="content-grid">
+          <div class="feed" id="feed" aria-live="polite"></div>
+
+          <aside class="right-rail" aria-label="GDCH 정보">
+            <section class="panel">
+              <h2>GDCH 현황</h2>
+              <div class="metric-list">
+                <div><strong id="memberCount">2,418</strong><span>가입 멤버</span></div>
+                <div><strong id="todayCount">37</strong><span>오늘 새 글</span></div>
+                <div><strong id="hotCount">8</strong><span>인기 글</span></div>
+              </div>
+            </section>
+            <section class="panel">
+              <h2>실시간 키워드</h2>
+              <div class="chips" id="chips"></div>
+            </section>
+            <section class="panel compact">
+              <h2>GDCH 원칙</h2>
+              <p>실명, 회사 기밀, 개인정보를 드러내지 않고 실제 겪을 법한 직장 이야기를 나눕니다.</p>
+            </section>
+          </aside>
+        </section>
+      </main>
+    </div>
+
+    <script src="app-data.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
+
+
+
+
+
+
+
+
