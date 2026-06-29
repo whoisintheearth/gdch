@@ -9,6 +9,8 @@ const detailTitle = document.querySelector("#detailTitle");
 const profileAvatar = document.querySelector("#profileAvatar");
 const profileName = document.querySelector("#profileName");
 const profileGroup = document.querySelector("#profileGroup");
+let easterEggTimer = null;
+const EASTER_EGG_SEEN_KEY = 'gdch-easter-egg-seen';
 
 if (!user) {
   window.location.href = "index.html";
@@ -62,6 +64,37 @@ function renderBlocked(message) {
   `;
 }
 
+function clearEasterEggTimer() {
+  if (!easterEggTimer) return;
+  clearTimeout(easterEggTimer);
+  easterEggTimer = null;
+}
+
+function triggerEasterEgg() {
+  if (document.querySelector(".easter-egg-overlay")) return;
+  localStorage.setItem(EASTER_EGG_SEEN_KEY, "true");
+
+  const overlay = document.createElement("div");
+  overlay.className = "easter-egg-overlay";
+  const stream = document.createElement("div");
+  stream.className = "easter-egg-stream";
+  stream.innerHTML = Array.from({ length: 18 }, (_, rowIndex) => `<div class="easter-egg-line" style="--line-index: ${rowIndex}">${Array.from({ length: 10 }, () => '<span>이름님을 찬양하라</span>').join("")}</div>`).join("");
+  overlay.appendChild(stream);
+  document.body.appendChild(overlay);
+
+  setTimeout(() => {
+    window.location.href = "index.html";
+  }, 5000);
+}
+
+function scheduleEasterEgg(post) {
+  clearEasterEggTimer();
+  if (!post || !post.easterEgg) return;
+  if (localStorage.getItem(EASTER_EGG_SEEN_KEY) === "true") return;
+
+  const randomDelay = Math.floor(4000 + Math.random() * 8000);
+  easterEggTimer = setTimeout(triggerEasterEgg, randomDelay);
+}
 function getInitial(name) {
   return (name || "나").trim().slice(0, 1);
 }
@@ -80,9 +113,12 @@ function render() {
   identityText.textContent = `${user.name}님은 ${user.company} 소속으로 가입했습니다.`;
 
   if (!post) {
+    clearEasterEggTimer();
     renderBlocked("글을 찾을 수 없습니다.");
     return;
   }
+
+  scheduleEasterEgg(post);
 
   document.querySelector("#detailLikes").textContent = String(post.likes);
   document.querySelector("#detailComments").textContent = String(post.comments.length);
@@ -173,6 +209,12 @@ document.querySelector("#logoutButton").addEventListener("click", () => {
 });
 
 render();
+
+
+
+
+
+
 
 
 

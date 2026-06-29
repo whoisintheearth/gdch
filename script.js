@@ -121,8 +121,19 @@ function getCompanyAvatar(company) {
 
 
 function renderPostCard(post) {
+  const cardClasses = [
+    "post",
+    "post-clickable",
+    post.vanishing ? "vanishing-post" : "",
+    post.cosmicAd ? "cosmic-shop-post" : "",
+    post.nameAppear ? "name-appear-post" : "",
+  ].filter(Boolean).join(" ");
+  const vanishDelay = post.revealDelay ?? (post.cosmicAd ? 3000 : 0);
+  const vanishDuration = post.vanishDuration ?? 5000;
+  const vanishAttrs = post.vanishing ? `data-vanishing-post="true" data-vanishing-delay="${vanishDelay}" data-vanishing-duration="${vanishDuration}"` : "";
+
   return `
-    <article class="post post-clickable" data-open-post="${post.id}" tabindex="0" role="link" aria-label="${post.title} 상세 페이지로 이동">
+    <article class="${cardClasses}" ${vanishAttrs} data-open-post="${post.id}" tabindex="0" role="link" aria-label="${post.title} 상세 페이지로 이동">
       <div class="post-header">
         <div class="author">
           <span class="avatar">${getCompanyAvatar(post.company)}</span>
@@ -147,6 +158,57 @@ function renderPostCard(post) {
   `;
 }
 
+function setupVanishingPosts() {
+  const targets = feed.querySelectorAll("[data-vanishing-post]");
+
+  targets.forEach((target) => {
+    if (target.dataset.vanishingBound === "true") return;
+    target.dataset.vanishingBound = "true";
+    target.dataset.vanishingReady = "true";
+
+    const reset = () => {
+      clearTimeout(target.vanishingRevealTimer);
+      clearTimeout(target.vanishingGoneTimer);
+      target.classList.remove("vanishing-post-visible", "vanishing-post-gone");
+      target.dataset.vanishingReady = "true";
+    };
+
+    const reveal = () => {
+      if (target.dataset.vanishingReady !== "true") return;
+      target.dataset.vanishingReady = "false";
+      clearTimeout(target.vanishingRevealTimer);
+      clearTimeout(target.vanishingGoneTimer);
+
+      target.vanishingRevealTimer = setTimeout(() => {
+        if (!target.isConnected) return;
+        target.classList.add("vanishing-post-visible");
+
+        target.vanishingGoneTimer = setTimeout(() => {
+          if (!target.isConnected) return;
+          target.classList.add("vanishing-post-gone");
+        }, Number(target.dataset.vanishingDuration || 5000));
+      }, Number(target.dataset.vanishingDelay || 0));
+    };
+
+    if (!("IntersectionObserver" in window)) {
+      reveal();
+      return;
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          reveal();
+          return;
+        }
+
+        reset();
+      });
+    }, { threshold: 0.35 });
+
+    observer.observe(target);
+  });
+}
 function renderPosts() {
   const posts = getVisiblePosts();
 
@@ -165,6 +227,7 @@ function renderPosts() {
     </div>
     ${posts.map(renderPostCard).join("")}
   `;
+  setupVanishingPosts();
 }
 
 function renderChips() {
@@ -380,6 +443,13 @@ if (sessionUser) {
 } else {
   showAuth();
 }
+
+
+
+
+
+
+
 
 
 

@@ -1,7 +1,7 @@
 ﻿(function () {
   const USERS_KEY = "gdch-users";
   const SESSION_KEY = "gdch-session";
-  const POSTS_KEY = "gdch-posts-v9";
+  const POSTS_KEY = "gdch-posts-v15";
 
   const seedPosts = [
     {
@@ -102,6 +102,28 @@
     },
     {
       id: 107,
+      company: "�?�?",
+      type: "info",
+      title: "이름님을 아세요?",
+      body: "이름님을 아세요?.",
+      author: "¿⍰�",
+      time: "방금 전",
+      likes: 0,
+      comments: [
+        {author: "¿⍰�", body: "¿¿¿ \\uC774\\uB984\\uB2D8\\uC744_\\uCC2C\\uC591\\uD558\\uB77C ¿¿¿",time: "방금 전"},
+        {author: "¿⍰�", body: "¿이름님?",time: "방금 전"},
+
+      ],
+      saved: false,
+      liked: false,
+      easterEgg: true,
+      vanishing: true,
+      nameAppear: true,
+      revealDelay: 0,
+      vanishDuration: 5000,
+    },
+    {
+      id: 108,
       company: "(주) 백일몽 주식회사",
       type: "question",
       title: "인사팀 면담실 녹음 안내 멘트 들으신 분",
@@ -116,7 +138,7 @@
       liked: false,
     },
     {
-      id: 108,
+      id: 109,
       company: "일반 회사",
       type: "info",
       title: "요즘 회사 출입앱 오류 대비해서 신분증 챙기세요",
@@ -131,7 +153,7 @@
       liked: false,
     },
     {
-      id: 109,
+      id: 110,
       company: "일반 회사",
       type: "question",
       title: "13층 결재 요청도 근태에 잡히나요?",
@@ -147,7 +169,7 @@
       liked: false,
     },
     {
-      id: 110,
+      id: 111,
       company: "초자연 재난관리국",
       type: "question",
       title: "B-4 대피소 출근 요청은 어느 부서 결재인가요?",
@@ -163,7 +185,7 @@
       liked: false,
     },
     {
-      id: 111,
+      id: 112,
       company: "(주) 백일몽 주식회사",
       type: "info",
       title: "수면실 사용 완료가 제 출근보다 빠릅니다",
@@ -177,6 +199,21 @@
       ],
       saved: true,
       liked: false,
+    },
+    {
+      id: 113,
+      company: "우주 쇼핑몰",
+      type: "info",
+      title: "&lt;우주 쇼핑몰&gt;",
+      body: "<span class=\"cosmic-line cosmic-blue\">&gt;&gt;나는 물건을 본다</span><span class=\"cosmic-line cosmic-orange\">*재탄생 기념 할인 행사!*</span><span class=\"cosmic-line cosmic-gold\">놀랍다 가격!</span>",
+      author: "우주 쇼핑몰",
+      time: "방금 전",
+      likes: 0,
+      comments: [],
+      saved: false,
+      liked: false,
+      vanishing: true,
+      cosmicAd: true,
     },
   ];
 
@@ -240,5 +277,15 @@
     keywords,
   };
 })();
+
+
+
+
+
+
+
+
+
+
 
 

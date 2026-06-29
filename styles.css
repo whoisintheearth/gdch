@@ -1050,3 +1050,227 @@ button {
   object-fit: cover;
 }
 
+
+.easter-egg-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  overflow: hidden;
+  width: 100vw;
+  min-height: 100vh;
+  background: #c40000;
+  color: #050505;
+}
+
+.easter-egg-stream {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  width: 100%;
+  min-height: 100%;
+  padding: clamp(8px, 1.6vw, 22px);
+  gap: clamp(3px, 0.8vh, 10px);
+  animation: easterEggBlink 420ms steps(2, end) infinite 2.2s;
+}
+
+.easter-egg-line {
+  display: flex;
+  width: 100%;
+  overflow: hidden;
+  clip-path: inset(0 100% 0 0);
+  animation: easterEggLineFill 900ms steps(14, end) forwards;
+  animation-delay: calc(var(--line-index) * 70ms);
+}
+
+.easter-egg-line span {
+  display: inline-block;
+  flex: 0 0 auto;
+  margin-right: clamp(10px, 1.8vw, 26px);
+  color: #050505;
+  font-size: clamp(18px, 3.1vw, 46px);
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: 0;
+  white-space: nowrap;
+  text-align: left;
+}
+
+@keyframes easterEggBlink {
+  0%, 100% {
+    opacity: 1;
+    filter: none;
+  }
+
+  50% {
+    opacity: 0.72;
+    filter: contrast(2.4);
+  }
+}
+
+@keyframes easterEggLineFill {
+  from {
+    clip-path: inset(0 100% 0 0);
+    transform: translateX(-2px);
+    filter: contrast(1.2);
+  }
+
+  to {
+    clip-path: inset(0 0 0 0);
+    transform: translateX(0);
+    filter: contrast(1.8);
+  }
+}
+
+
+
+.vanishing-post {
+  overflow: hidden;
+  max-height: 520px;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-6px) scale(0.98);
+  filter: blur(1px);
+  pointer-events: none;
+}
+
+.vanishing-post-visible {
+  visibility: visible;
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  filter: none;
+  pointer-events: auto;
+  animation: cosmicAdAppear 260ms steps(2, end);
+}
+
+.vanishing-post-gone {
+  animation: vanishingPost 900ms ease forwards;
+  pointer-events: none;
+}
+
+.vanishing-post .badge {
+  background: #050505;
+  color: #c40000;
+}
+
+@keyframes cosmicAdAppear {
+  0% {
+    opacity: 0;
+    transform: translateY(-8px) scale(0.96);
+    filter: blur(2px) contrast(2);
+  }
+
+  45% {
+    opacity: 1;
+    transform: translateY(2px) scale(1.02);
+    filter: contrast(2.4);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: none;
+  }
+}
+
+@keyframes vanishingPost {
+  0% {
+    max-height: 520px;
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0) scale(1);
+    filter: none;
+  }
+
+  70% {
+    opacity: 0.35;
+    filter: blur(1px) contrast(1.8);
+  }
+
+  100% {
+    max-height: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    border-width: 0;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px) scale(0.96);
+    filter: blur(3px) contrast(2.4);
+  }
+}
+
+.cosmic-shop-post {
+  background: #ffffff;
+  border-color: #d6d6d6;
+  text-align: center;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.8), 0 10px 24px rgba(0, 0, 0, 0.08);
+}
+
+.cosmic-shop-post .post-header,
+.cosmic-shop-post .post-footer {
+  display: none;
+}
+
+.cosmic-shop-post h2 {
+  margin: 0 0 4px;
+  color: #00ff24;
+  font-size: clamp(22px, 3vw, 34px);
+  font-weight: 800;
+  line-height: 1.1;
+  text-shadow: 1px 1px 0 #ff00d4;
+}
+
+.cosmic-shop-post p {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  color: inherit;
+  font-family: "Times New Roman", serif;
+  line-height: 1.15;
+}
+
+.cosmic-line {
+  display: block;
+  width: 100%;
+  font-weight: 800;
+  letter-spacing: 0;
+  text-align: center;
+  text-shadow: 1px 1px 0 #ffffff;
+}
+
+.cosmic-blue {
+  color: #001eff;
+  font-size: clamp(15px, 2vw, 22px);
+}
+
+.cosmic-orange {
+  color: #ff8a00;
+  font-size: clamp(15px, 2vw, 21px);
+  text-shadow: 1px 1px 0 #001eff;
+}
+
+.cosmic-gold {
+  color: #d98900;
+  font-size: clamp(15px, 2vw, 22px);
+  text-shadow: 1px 1px 0 #9b5d00;
+}
+
+
+
+
+
+.name-appear-post {
+  border-color: rgba(196, 0, 0, 0.38);
+  background: #fffafa;
+}
+
+.name-appear-post.vanishing-post-visible {
+  box-shadow: 0 0 0 1px rgba(196, 0, 0, 0.16), 0 16px 38px rgba(196, 0, 0, 0.14);
+}
+
+.name-appear-post h2 {
+  color: #050505;
+}
